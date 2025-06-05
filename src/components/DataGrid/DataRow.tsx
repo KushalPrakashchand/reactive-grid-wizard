@@ -63,8 +63,8 @@ export function DataRow<T>({
         return (
           <div
             key={column.key}
-            className="flex items-center px-3 py-2 border-r border-gray-200 last:border-r-0 text-sm text-gray-900"
-            style={{ width: column.width }}
+            className="flex items-center px-3 py-2 border-r border-gray-200 last:border-r-0 text-sm text-gray-900 flex-shrink-0"
+            style={{ width: column.width || 150 }}
           >
             <span className="truncate">{formattedValue}</span>
           </div>

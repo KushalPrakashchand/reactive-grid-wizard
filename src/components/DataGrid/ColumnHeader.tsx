@@ -75,7 +75,10 @@ export function ColumnHeader<T>({
   };
 
   return (
-    <div className="border-r border-gray-200 last:border-r-0">
+    <div 
+      className="border-r border-gray-200 last:border-r-0 flex-shrink-0"
+      style={{ width: column.width || 150 }}
+    >
       <div
         className={cn(
           "flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200",
@@ -83,10 +86,9 @@ export function ColumnHeader<T>({
           column.sortable !== false && "cursor-pointer"
         )}
         onClick={handleSort}
-        style={{ width: column.width }}
       >
-        <span className="font-medium text-gray-900 text-sm">{column.header}</span>
-        <div className="flex items-center gap-1">
+        <span className="font-medium text-gray-900 text-sm truncate">{column.header}</span>
+        <div className="flex items-center gap-1 flex-shrink-0">
           {column.filterable && (
             <button
               onClick={(e) => {

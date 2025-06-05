@@ -99,6 +99,9 @@ export function DataGrid<T = any>({
     });
   };
 
+  // Calculate total width for proper alignment
+  const totalWidth = columns.reduce((sum, col) => sum + (col.width || 150), 0);
+
   return (
     <div className={cn("border border-gray-200 rounded-lg overflow-hidden bg-white", className)}>
       {enableGrouping && (
@@ -111,7 +114,7 @@ export function DataGrid<T = any>({
       
       <div className="overflow-auto">
         {/* Header */}
-        <div className="flex bg-gray-50 border-b border-gray-200">
+        <div className="flex bg-gray-50 border-b border-gray-200" style={{ minWidth: totalWidth }}>
           {columns.map((column) => (
             <ColumnHeader
               key={column.key}
@@ -131,17 +134,19 @@ export function DataGrid<T = any>({
               No data to display
             </div>
           ) : (
-            processedData.map((row, index) => (
-              <DataRow
-                key={row.type === 'group' ? `group-${row.groupKey}-${index}` : `data-${index}`}
-                row={row}
-                columns={columns}
-                rowHeight={rowHeight}
-                onClick={onRowClick}
-                onGroupToggle={handleGroupToggle}
-                index={index}
-              />
-            ))
+            <div style={{ minWidth: totalWidth }}>
+              {processedData.map((row, index) => (
+                <DataRow
+                  key={row.type === 'group' ? `group-${row.groupKey}-${index}` : `data-${index}`}
+                  row={row}
+                  columns={columns}
+                  rowHeight={rowHeight}
+                  onClick={onRowClick}
+                  onGroupToggle={handleGroupToggle}
+                  index={index}
+                />
+              ))}
+            </div>
           )}
         </div>
       </div>
